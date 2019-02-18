@@ -6,6 +6,7 @@
 #include "includes.h"
 #include "ColorBar.h"
 #include "ColorChannel.h"
+#include "SubmitButton.h"
 #include "InputBox.h"
 
 class ColorMapContainer
@@ -20,6 +21,8 @@ private:
 	ColorBar* colorBar;
 
 	InputBox* inputBox;
+
+	SubmitButton* submitButton;
 
 	sf::RectangleShape container;
 
@@ -49,6 +52,8 @@ public:
 		blueChannel = new ColorChannel(sf::Vector2f(position.x + 10, position.y + 400), sf::Vector2f(700, 90), BLUE, NUMBER);
 		// initialize input box
 		inputBox = new InputBox(sf::Vector2f(100, 100), font, "#", sf::Vector2f(160, 45));
+		// initialize submit button
+		submitButton = new SubmitButton(sf::Vector2f(100, 100), sf::Vector2f(100, 100));
 	}
 
 	void update(sf::Event event, sf::RenderWindow * window)
@@ -73,6 +78,8 @@ public:
 				greenChannel->handleMouseEvents(mouse_position, colorBar);
 				blueChannel->handleMouseEvents(mouse_position, colorBar);
 			}
+			//std::cout << submitButton->generateColorMapHeader(colorBar) <<std::endl;
+			submitButton->generateColorMapHeader(colorBar);
 			break;
 		case sf::Event::MouseButtonPressed:
 			if (event.mouseButton.button == sf::Mouse::Left)

@@ -125,7 +125,7 @@ public:
 		return false;
 	}
 
-	node * getNode(int index)
+	node* getNode(int index)
 	{
 		float distance = ((float)index) / NUMBER;
 		node * curr = &head;
