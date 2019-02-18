@@ -9,4 +9,9 @@ enum flag_code {
 	NOT_SELECTED
 };
 
+enum color_channels {
+	RED,
+	GREEN,
+	BLUE
+};
 #endif
