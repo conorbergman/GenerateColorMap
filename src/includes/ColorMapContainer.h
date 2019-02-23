@@ -8,6 +8,7 @@
 #include "ColorChannel.h"
 #include "SubmitButton.h"
 #include "InputBox.h"
+#include "TextDisplay.h"
 
 class ColorMapContainer
 {
@@ -21,6 +22,8 @@ private:
 	ColorBar* colorBar;
 
 	InputBox* inputBox;
+
+	TextDisplay* text;
 
 	SubmitButton* submitButton;
 
@@ -54,6 +57,8 @@ public:
 		inputBox = new InputBox(sf::Vector2f(100, 100), font, "#", sf::Vector2f(160, 45));
 		// initialize submit button
 		submitButton = new SubmitButton(sf::Vector2f(100, 100), sf::Vector2f(100, 100));
+		// initialize text display
+		text = new TextDisplay(sf::Vector2f(position.x + (size.x - 300), position.y + 10), sf::Vector2f(100, 50), font);
 	}
 
 	void update(sf::Event event, sf::RenderWindow * window)
@@ -79,7 +84,9 @@ public:
 				blueChannel->handleMouseEvents(mouse_position, colorBar);
 			}
 			//std::cout << submitButton->generateColorMapHeader(colorBar) <<std::endl;
-			submitButton->generateColorMapHeader(colorBar);
+			if (event.key.code == sf::Keyboard::S ||
+				event.key.code == sf::Keyboard::Z)
+				submitButton->generateColorMapHeader(colorBar);
 			break;
 		case sf::Event::MouseButtonPressed:
 			if (event.mouseButton.button == sf::Mouse::Left)
@@ -115,16 +122,18 @@ public:
 		redChannel->update(colorBar);
 		greenChannel->update(colorBar);
 		blueChannel->update(colorBar);
+		text->update(colorBar);
 	}
 
 	void draw(sf::RenderWindow * window)
 	{
 		window->draw(container);
 		colorBar->draw(window);
-		redChannel->draw(window);
-		greenChannel->draw(window);
-		blueChannel->draw(window);
+		redChannel->draw(window, colorBar);
+		greenChannel->draw(window, colorBar);
+		blueChannel->draw(window, colorBar);
 		inputBox->draw(window);
+		text->draw(window);
 	}
 };
 

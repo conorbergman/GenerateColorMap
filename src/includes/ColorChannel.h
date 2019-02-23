@@ -84,7 +84,7 @@ public:
 		selected = colorbar->getCurrSelected();
 	}
 
-	void draw(sf::RenderWindow * window)
+	void draw(sf::RenderWindow * window, ColorBar * colorbar)
 	{
 		window->draw(container);
 		window->draw(value_line);
@@ -94,6 +94,34 @@ public:
 			cursor_line.setPosition(value_line[selected].position.x, channel_position.y);
 			cursor_line.setFillColor(sf::Color(255, 255, 255, 100));
 			window->draw(cursor_line);
+		}
+		node * curr = colorbar->getNode(0);
+		while (curr != nullptr)
+		{
+			float x = channel_position.x +  curr->position * channel_size.x;
+			float y;
+			float radius = 3;
+			switch (CHANNEL)
+			{
+			case RED:
+				y = channel_position.y + ((255.0 - curr->color.r) / 255.0) * channel_size.y;
+				break;
+			case GREEN:
+				y = channel_position.y + ((255.0 - curr->color.g) / 255.0) * channel_size.y;
+				break;
+			case BLUE:
+				y = channel_position.y + ((255.0 - curr->color.b) / 255.0) * channel_size.y;
+				break;
+			default:
+				y = channel_position.y + ((255.0 - curr->color.b) / 255.0) * channel_size.y;
+				break;
+			}
+			sf::CircleShape node_circle = sf::CircleShape();
+			node_circle.setRadius(radius);
+			node_circle.setFillColor(sf::Color(255, 255, 255));
+			node_circle.setPosition(x - radius,y - radius);
+			window->draw(node_circle);
+			curr = curr->next;
 		}
 	}
 };

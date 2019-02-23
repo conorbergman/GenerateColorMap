@@ -46,7 +46,6 @@ public:
 		for (int i = 0; i < NUMBER; i++)
 		{
 			panes.push_back(sf::RectangleShape(sf::Vector2f(PANE_WIDTH, BAND_HEIGHT)));
-			//panes[i].setFillColor(sf::Color(255 * ((NUMBER - i) / (float)NUMBER), 255 * (i / (float)NUMBER), 100));
 			panes[i].setFillColor(calculateColor(&prev_node, &next_node, i / (float)NUMBER));
 			panes[i].setPosition(position.x + PANE_WIDTH * i, position.y);
 		}
@@ -71,7 +70,6 @@ public:
 	void addNode(float mouse_position_x, sf::Color color)
 	{
 		float distance = ((mouse_position_x - position.x) / (float)BAND_WIDTH);
-		std::cout << distance << std::endl;
 		node* curr = &head;
 		node* tmp;
 		while ((distance > curr->position) && (curr->next != nullptr))
@@ -195,6 +193,8 @@ public:
 
 	sf::Color getPaneColor(int p)
 	{
+		if (p < 0)
+			return sf::Color(0, 0, 0);
 		return panes[p].getFillColor();
 	}
 
@@ -237,26 +237,9 @@ public:
 					panes[curr_selected].setOutlineThickness(0);
 				panes[i].setOutlineThickness(1);
 				curr_selected = i;
-
-				/*
-				*color_text = "r:";
-				*color_text += std::to_string(panes[i].getFillColor().r);
-				*color_text += " g:";
-				*color_text += std::to_string(panes[i].getFillColor().g);
-				*color_text += " b:";
-				*color_text += std::to_string(panes[i].getFillColor().b);
-				*/
-				//flags[NOT_SELECTED] = 0;
-				//flags[KEYBOARD_INPUT] = 0;
 			}
 		}
 	}
-
-	void update()
-	{
-
-	}
-
 
 	void draw(sf::RenderWindow * window)
 	{

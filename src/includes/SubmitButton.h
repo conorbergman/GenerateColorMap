@@ -52,16 +52,16 @@ public:
 		curr = curr->next;
 		while (curr != nullptr)
 		{
-			output += "\n\tif (value <= " + std::to_string(curr->position) + ")\n\t{\n\t\t";
-			output += "float increment = (value - " + std::to_string(curr->prev->position) + ") / (" +
-				std::to_string(curr->position) + " - " + std::to_string(curr->prev->position) + ");\n\t\t";
-			output += "float r = " + std::to_string(curr->prev->color.r) + " + (" + std::to_string(curr->color.r) +
-				" - " + std::to_string(curr->prev->color.r) + ") * increment;\n\t\t";
-			output += "float g = " + std::to_string(curr->prev->color.g) + " + (" + std::to_string(curr->color.g) +
-				" - " + std::to_string(curr->prev->color.g) + ") * increment;\n\t\t";
-			output += "float b = " + std::to_string(curr->prev->color.b) + " + (" + std::to_string(curr->color.b) +
-				" - " + std::to_string(curr->prev->color.b) + ") * increment;\n\n\t\t";
-			output += "return sf::Color(r, g, b);\n\t}";
+			output += "\n\tif (value <= " + std::to_string(curr->position) + ")\n\t{\n\t\t"
+				   + "float increment = (value - " + std::to_string(curr->prev->position) + ") / (" +
+				     std::to_string(curr->position) + " - " + std::to_string(curr->prev->position) + ");\n\t\t"
+			       + "float r = " + std::to_string(curr->prev->color.r) + " + (" + std::to_string(curr->color.r) +
+				     " - " + std::to_string(curr->prev->color.r) + ") * increment;\n\t\t"
+			       + "float g = " + std::to_string(curr->prev->color.g) + " + (" + std::to_string(curr->color.g) +
+				     " - " + std::to_string(curr->prev->color.g) + ") * increment;\n\t\t"
+			       + "float b = " + std::to_string(curr->prev->color.b) + " + (" + std::to_string(curr->color.b) +
+				     " - " + std::to_string(curr->prev->color.b) + ") * increment;\n\n\t\t"
+			       + "return sf::Color(r, g, b);\n\t}";
 
 			curr = curr->next;
 		}
